@@ -9,6 +9,6 @@ void main() {
       initialRoute: '/',
       routes: {
         '/': (context) => const StudentEntryScreen(),
-        '/display': (context) => DisplayScreen()
+        '/display': (context) => const DisplayScreen()
       }));
 }
