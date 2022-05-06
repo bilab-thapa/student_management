@@ -1,8 +1,7 @@
 class Student {
   String? fname;
   String? lname;
-  String? batch;
-  String? email;
+  String? address;
 
-  Student(this.fname, this.lname, this.batch, this.email);
+  Student({this.fname, this.lname, this.address});
 }

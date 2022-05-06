@@ -1,59 +1,62 @@
 import 'package:flutter/material.dart';
-
-import '../model/students.dart';
+import '/model/students.dart';
 
 class StudentEntryScreen extends StatefulWidget {
   const StudentEntryScreen({Key? key}) : super(key: key);
-
   @override
   State<StudentEntryScreen> createState() => _StudentEntryScreenState();
 }
 
 class _StudentEntryScreenState extends State<StudentEntryScreen> {
+  String? fname, lname, address;
+  List<Student> lstStudent = [];
+  _addStudent(Student student) {
+    setState(() {
+      lstStudent.add(student);
+      // print(listStudent);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    String? fname, lname, batch, email;
-    List<Student> listStudent = [];
-
-    _addStudent(Student student) {
-      setState(() {
-        listStudent.add(student);
-        print(listStudent.length);
-      });
-    }
-
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.cyan,
+        backgroundColor: Colors.green,
         centerTitle: true,
         title: const Text(
           'Student Resgistration',
         ),
       ),
       body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
         child: Padding(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(9),
           child: Column(
             children: [
               TextFormField(
-                onChanged: (value) => fname,
+                onChanged: (value) {
+                  setState(() {
+                    fname = value;
+                  });
+                },
                 decoration: const InputDecoration(labelText: 'First Name'),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
               TextFormField(
-                onChanged: (value) => lname,
+                onChanged: (value) {
+                  setState(() {
+                    lname = value;
+                  });
+                },
                 decoration: const InputDecoration(labelText: 'Last Name'),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
               TextFormField(
-                onChanged: (value) => batch,
-                decoration: const InputDecoration(labelText: 'Batch'),
-              ),
-              const SizedBox(height: 10),
-              TextFormField(
-                onChanged: (value) => email,
-                decoration: const InputDecoration(labelText: 'Email'),
+                onChanged: (value) {
+                  setState(() {
+                    address = value;
+                  });
+                },
+                decoration: const InputDecoration(labelText: 'Address'),
               ),
               const SizedBox(height: 50),
               SizedBox(
@@ -62,22 +65,32 @@ class _StudentEntryScreenState extends State<StudentEntryScreen> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: Colors.green),
                   onPressed: () {
-                    Student s = Student(fname, lname, batch, email);
+                    Student s =
+                        Student(fname: fname, lname: lname, address: address);
                     _addStudent(s);
                   },
-                  child: const Text('Add'),
+                  child: const Text(
+                    'Add',
+                    style: TextStyle(fontSize: 20),
+                  ),
                 ),
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 15),
               SizedBox(
                 width: double.infinity,
                 height: 50,
                 child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(primary: Colors.red),
+                  style: ElevatedButton.styleFrom(primary: Colors.blue),
                   onPressed: () {
-                    Navigator.of(context).pushNamed('/display');
+                    Navigator.of(context).pushNamed(
+                      '/display',
+                      arguments: lstStudent,
+                    );
                   },
-                  child: const Text('View Students'),
+                  child: const Text(
+                    'View Students',
+                    style: TextStyle(fontSize: 20),
+                  ),
                 ),
               ),
             ],
